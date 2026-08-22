@@ -1,0 +1,81 @@
+import std.net.http
+import std.json
+import std.env
+import flamer
+
+
+
+let bot_token: String? = env.get("BOT_TOKEN")
+let webhook_url: String? = env.get("WEBHOOK_URL")
+
+export async fn reply(update: &Formula, token: &String, replyText: String) -> Formula {
+    let chat_id = update.message.chat.id
+    let send_url = $"https://api.telegram.org/bot{token}/sendMessage"
+    let payload = {
+
+        chat_id: chat_id,
+        text: replyText
+    }
+
+    let res: Formula? = await http.post(send_url, payload).json()
+
+    // println($"Bot response: {res?.result.text}")
+    return res
+}
+
+
+export async fn setWebhook(token: &String, webhookUrl: &String) -> Formula {
+    let url = $"https://api.telegram.org/bot{token}/setWebhook"
+    let payload = {
+
+        url: webhookUrl
+    }
+
+    let response = await http.post(url, payload)
+    let result = await response.json()
+
+    // println($"Webhook response: {result}")
+    return result
+}
+
+async fn webhook(body: Formula) -> Formula {
+    let data: Formula? = json.parse(body)
+    let text: String? = data.message.text
+    let chat_first_name: String? = data.message.chat.first_name
+
+    println($"Received from {chat_first_name}: {text}")
+
+    match text {
+        "/start" => {
+            await reply(&data, &bot_token, $"Hello {chat_first_name}")
+        }
+
+        _ => {
+            await reply(&data, &bot_token "Hola, I have no answer for this!")
+        }
+
+    }
+
+    return {
+        ok: true
+    }
+
+}
+
+let webhookRes = await setWebhook(&bot_token, &webhook_url)
+
+println($"Webhook setup: {webhookRes?.description}")
+
+@Flamer(port: 3000)
+async fn main() {
+    println("--- Flame Telegram Bot Webhook Server ---")
+
+    // Register route BEFORE webhook activation
+    flamer.post("/webhook", webhook)
+    println("Server listening on port 3000.")
+    println($"Point your Telegram webhook to: {webhook_url}")
+
+    await flamer.listen()
+}
+
+await main()
