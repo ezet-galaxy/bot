@@ -2,7 +2,7 @@
 
 The `bot` package provides Telegram Bot API integration for [Flame](https://github.com/shoya-129/flame).
 
-It simplifies Telegram bot development by providing functions for sending replies and configuring Telegram webhooks. The package works together with the `[flamer](https://github.com/shoya-129/flamer)` HTTP server package to receive Telegram updates through Flame HTTP routes.
+It simplifies Telegram bot development by providing functions for sending replies and configuring Telegram webhooks. The package works together with the [flamer](https://github.com/shoya-129/flamer) HTTP server package to receive Telegram updates through Flame HTTP routes.
 
 ## Features
 
