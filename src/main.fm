@@ -38,44 +38,44 @@ export async fn setWebhook(token: &String, webhookUrl: &String) -> Formula {
     return result
 }
 
-async fn webhook(body: Formula) -> Formula {
-    let data: Formula? = json.parse(body)
-    let text: String? = data.message.text
-    let chat_first_name: String? = data.message.chat.first_name
+// async fn webhook(body: Formula) -> Formula {
+//     let data: Formula? = json.parse(body)
+//     let text: String? = data.message.text
+//     let chat_first_name: String? = data.message.chat.first_name
 
-    println($"Received from {chat_first_name}: {text}")
+//     println($"Received from {chat_first_name}: {text}")
 
-    match text {
-        "/start" => {
-            await reply(&data, &bot_token, $"Hello {chat_first_name}")
-        }
+//     match text {
+//         "/start" => {
+//             await reply(&data, &bot_token, $"Hello {chat_first_name}")
+//         }
 
-        _ => {
-            await reply(&data, &bot_token "Hola, I have no answer for this!")
-        }
+//         _ => {
+//             await reply(&data, &bot_token "Hola, I have no answer for this!")
+//         }
 
-    }
+//     }
 
-    return {
-        ok: true
-    }
+//     return {
+//         ok: true
+//     }
 
-}
+// }
 
-let webhookRes = await setWebhook(&bot_token, &webhook_url)
+// let webhookRes = await setWebhook(&bot_token, &webhook_url)
 
-println($"Webhook setup: {webhookRes?.description}")
+// println($"Webhook setup: {webhookRes?.description}")
 
-@Flamer(port: 3000)
-async fn main() {
-    println("--- Flame Telegram Bot Webhook Server ---")
+// @Flamer(port: 3000)
+// async fn main() {
+//     println("--- Flame Telegram Bot Webhook Server ---")
 
-    // Register route BEFORE webhook activation
-    flamer.post("/webhook", webhook)
-    println("Server listening on port 3000.")
-    println($"Point your Telegram webhook to: {webhook_url}")
+//     // Register route BEFORE webhook activation
+//     flamer.post("/webhook", webhook)
+//     println("Server listening on port 3000.")
+//     println($"Point your Telegram webhook to: {webhook_url}")
 
-    await flamer.listen()
-}
+//     await flamer.listen()
+// }
 
-await main()
+// await main()
