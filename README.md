@@ -34,11 +34,12 @@ import bot
 import flamer
 ```
 
-You can also use Flame standard-library modules such as `std.env` and `std.json`:
+You can also use Flame standard-library modules such as `std.env`, `std.json` and `std.net.http`:
 
 ```flame
 import std.env
 import std.json
+import std.net.http
 ```
 
 ## Environment Variables
@@ -382,6 +383,7 @@ A Telegram bot application using this package requires:
 - `flamer`
 - `std.json`
 - `std.env`
+- `std.net.http`
 - A Telegram bot created through BotFather
 - A publicly reachable HTTPS webhook endpoint
 - For local development, use ngrok or a Cloudflare Tunnel to expose your localhost and use the generated HTTPS URL as the Telegram webhook URL
