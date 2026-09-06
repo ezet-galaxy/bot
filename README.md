@@ -18,13 +18,13 @@ It simplifies Telegram bot development by providing functions for sending replie
 Install the `flamer` HTTP server package:
 
 ```bash
-flame add https://github.com/shoya-129/flamer
+fmp add https://github.com/shoya-129/flamer
 ```
 
 Then install the Telegram bot package:
 
 ```bash
-flame add https://github.com/ezet-galaxy/bot
+fmp add https://github.com/ezet-galaxy/bot
 ```
 
 Import the packages in your Flame application:
